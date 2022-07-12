@@ -4,12 +4,13 @@ import Loading from './Loading'
 import { useGlobalContext } from '../context'
 
 const CocktailList = () => {
-  const { drinks } = useGlobalContext()
-  console.log(drinks)
-  // const allDrinks = 
+  const { drinks, loading } = useGlobalContext()
+  console.log(drinks.drinks)
+  const allDrinks = drinks.drinks ? drinks.drinks.map(drink => (
+    <Cocktail { ...drink } />
+  )) : ''
 
-
-  if (!drinks) {
+  if (loading) {
     return <Loading />
   }
 
@@ -17,7 +18,7 @@ const CocktailList = () => {
     <section className="section">
       <h1 className="section-title">Cocktails</h1>
       <div className="cocktails-center">
-
+        {allDrinks}
       </div>
     </section>
   )

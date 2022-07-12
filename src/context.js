@@ -6,16 +6,22 @@ const AppContext = React.createContext()
 
 const AppProvider = ({ children }) => {
   const [drinks, setDrinks] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     fetch(url)
       .then(res => res.json())
-      .then(data => setDrinks(data))
+      .then(data => {
+        setDrinks(data)
+        setLoading(false)
+      })
       .catch(err => alert(`REFRESH PAGE, ${err}`))
   }, [])
 
   return <AppContext.Provider value={{
-    drinks
+    drinks,
+    loading
   }}>
     {children}
   </AppContext.Provider>
