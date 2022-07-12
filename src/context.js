@@ -5,7 +5,20 @@ const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
 const AppContext = React.createContext()
 
 const AppProvider = ({ children }) => {
-  return <AppContext.Provider value='hello'>{children}</AppContext.Provider>
+  const [drinks, setDrinks] = useState([])
+
+  useEffect(() => {
+    fetch(url)
+      .then(res => res.json())
+      .then(data => setDrinks(data))
+      .catch(err => alert(`REFRESH PAGE, ${err}`))
+  }, [])
+
+  return <AppContext.Provider value={{
+    drinks
+  }}>
+    {children}
+  </AppContext.Provider>
 }
 // make sure use
 export const useGlobalContext = () => {
