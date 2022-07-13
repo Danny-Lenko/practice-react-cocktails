@@ -5,9 +5,8 @@ import { useGlobalContext } from '../context'
 
 const CocktailList = () => {
   const { drinks, loading } = useGlobalContext()
-  console.log(drinks.drinks)
   const allDrinks = drinks.drinks ? drinks.drinks.map(drink => (
-    <Cocktail { ...drink } />
+    <Cocktail { ...drink } key={drink.idDrink} />
   )) : ''
 
   if (loading) {
