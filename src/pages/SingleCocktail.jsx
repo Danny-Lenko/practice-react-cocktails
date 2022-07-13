@@ -27,6 +27,12 @@ const SingleCocktail = () => {
       })
   }, [])
 
+  function getIngredients(data) {
+    return Object.entries(data)
+      .filter(item => item[0].match(/ingredient/i) && item[1])
+      .map(item => item[1]).join(', ')
+  }
+
   if (loading) {
     return <Loading />
   }
@@ -76,9 +82,9 @@ const SingleCocktail = () => {
 
           <p className="drink-info">
             <span className="drink-data">
-              Instructions:
+              Ingredients:
             </span>
-            {strInstructions}
+            {getIngredients(drink)}
           </p>
         </div>
       </article>
