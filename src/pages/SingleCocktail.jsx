@@ -8,17 +8,24 @@ const SingleCocktail = () => {
   const [drink, setDrink] = useState({})
   const [loading, setLoading] = useState(false)
 
+  const {
+    strDrink,
+    strDrinkThumb,
+    strCategory,
+    strAlcoholic,
+    strGlass,
+    strInstructions
+  } = drink
+
   useEffect(() => {
     setLoading(true)
     fetch(url+id)
       .then(res => res.json())
       .then(data => {
-        setDrink(data.drinks)
+        setDrink(data.drinks[0])
         setLoading(false)
       })
   }, [])
-
-  console.log(drink)
 
   if (loading) {
     return <Loading />
@@ -27,7 +34,54 @@ const SingleCocktail = () => {
   return (
     <section className="cocktail-section section">
       <Link to="/" className="btn btn-primary">Back Home</Link>
-      <h1>{drink[0].strDrink}</h1>
+      <h1>{strDrink}</h1>
+      <article className="drink">
+        <img src={strDrinkThumb} alt="cocktail"/>
+
+        <div>
+          <p className="drink-info">
+            <span className="drink-data">
+              Name:
+            </span>
+            {strDrink}
+          </p>
+
+          <p className="drink-info">
+            <span className="drink-data">
+              Category:
+            </span>
+            {strCategory}
+          </p>
+
+          <p className="drink-info">
+            <span className="drink-data">
+              Info:
+            </span>
+            {strAlcoholic}
+          </p>
+
+          <p className="drink-info">
+            <span className="drink-data">
+              Glass:
+            </span>
+            {strGlass}
+          </p>
+
+          <p className="drink-info">
+            <span className="drink-data">
+              Instructions:
+            </span>
+            {strInstructions}
+          </p>
+
+          <p className="drink-info">
+            <span className="drink-data">
+              Instructions:
+            </span>
+            {strInstructions}
+          </p>
+        </div>
+      </article>
     </section>
   )
 }
